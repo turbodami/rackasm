@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Try WebAssembly</title>
+  </head>
+  <body>
+    <div id="rackasm"></div>
+    <script type="text/javascript">
+      var rackasmEntry = document.getElementById("rackasm");
+      var foo = fetch("foo.wasm")
+        .then((response) => response.arrayBuffer())
+        .then((bytes) => WebAssembly.instantiate(bytes, {}))
+        .then(
+          (k) =>
+            (rackasmEntry.innerHTML =
+              "Result of math expression compiled by rackasm: <strong>" +
+              k.instance.exports.foo() +
+              "</strong>")
+        );
+    </script>
+  </body>
+</html>
